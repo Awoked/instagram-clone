@@ -121,7 +121,8 @@ export default Login
 
 const styles = StyleSheet.create({
     formWrapper: {
-        gap: 30
+        gap: 30,
+        width: "100%"
     },
     inputsWrapper: {
         width: "100%",

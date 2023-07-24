@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 16,
         alignItems: "center",
-        rowGap: 40
+        rowGap: 40,
+        width: "100%"
     }
 })

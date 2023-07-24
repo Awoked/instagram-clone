@@ -6,7 +6,7 @@ import Input from '../../components/UI/Form/Input'
 import UIButton from '../../components/UI/Form/UIButton'
 import AuthContainer from '../../components/Auth/AuthContainer'
 
-const Register = ({navigation}) => {
+const Register = ({ navigation }) => {
 
     return (
         <AuthContainer>
@@ -90,7 +90,7 @@ const Register = ({navigation}) => {
                     </Text>
                     <UIButton
                         as='text'
-                        onPress={() =>{ navigation.navigate("Login")}}
+                        onPress={() => { navigation.navigate("Login") }}
 
                     >
                         Sign in
@@ -105,7 +105,8 @@ export default Register
 
 const styles = StyleSheet.create({
     formWrapper: {
-        gap: 30
+        gap: 30,
+        width: "100%"
     },
     inputsWrapper: {
         width: "100%",

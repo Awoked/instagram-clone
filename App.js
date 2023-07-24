@@ -17,14 +17,20 @@ const Tab = createBottomTabNavigator();
 // Ana uygulama tabları
 function HomeTabs() {
     return (
-        <Tab.Navigator 
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    height: 60,
+                    paddingBottom: Platform.OS === "android" ? 20 : 0,
+                    alignItems: "center",
+                    justifyContent: "center"
+                }
+            }}
         >
             <Tab.Screen
                 name='Home'
                 component={Home}
-                options={{
-                    headerShown: false,
-                }}
             />
         </Tab.Navigator>
     )
