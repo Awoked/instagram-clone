@@ -1,10 +1,9 @@
 import React from 'react'
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import Login from './Login'
-import Logo from '../../components/UI/Logo'
-import Register from './Register'
+import { StyleSheet, View } from 'react-native'
+import Logo from '../UI/Logo'
 
-const Auth = () => {
+
+const AuthContainer = ({ children }) => {
     return (
         <View
             style={styles.wrapper}
@@ -16,14 +15,13 @@ const Auth = () => {
                     width={182}
                     height={49}
                 />
-                {/* <Login /> */}
-                <Register />
+                {children}
             </View>
         </View>
     )
 }
 
-export default Auth
+export default AuthContainer
 
 const styles = StyleSheet.create({
     wrapper: {
