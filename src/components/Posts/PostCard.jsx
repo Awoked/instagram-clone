@@ -1,10 +1,25 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import ProfilePicture from '../UI/ProfilePicture'
 import { Heart, IconComment, IconMore, IconSave, IconShare } from '../UI/Icons'
 import Comment from './Comment'
+import useComment from '../../customHooks/useComment'
 
 const PostCard = ({ userData, postData, }) => {
+
+    const { openComments } = useComment();
+
+
+    const [showMore, setShowMore] = useState(false);
+
+    const handleShow = () => {
+        if (showMore) {
+            openComments()
+        } else {
+            setShowMore(true)
+        }
+    }
+
     return (
         <View style={styles.wrapper}>
             <View
@@ -33,7 +48,11 @@ const PostCard = ({ userData, postData, }) => {
             <View style={styles.process}>
                 <View style={styles.processLeft}>
                     <Heart />
-                    <IconComment />
+                    <TouchableOpacity
+                        onPress={openComments}
+                    >
+                        <IconComment />
+                    </TouchableOpacity>
                     <IconShare />
                 </View>
 
@@ -42,20 +61,38 @@ const PostCard = ({ userData, postData, }) => {
                 </View>
             </View>
 
-            <View style={styles.commentsWrapper}>
+            <View style={styles.detailsWrapper}>
                 <View style={styles.likes}>
-
-                </View>
-
-                <View style={styles.comments}>
                     <Text style={[styles.fs13, styles.bold]}>
                         100 Likes
                     </Text>
+                </View>
 
-                    <Comment 
-                        userData={{userName: "Alper"}}
-                        comment={"Lorem ipsum dolor sit amet"}
-                    />
+                <View style={styles.details}>
+
+                    <Text
+                        numberOfLines={showMore ? undefined : 2}
+                        onPress={handleShow}
+                    >
+                        <Text onPress={() => { console.log("Go To profile") }} style={[styles.fs14, styles.bold]}>
+                            Alper&nbsp;
+                        </Text>
+                        <Text>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates voluptatem magni iste totam reiciendis amet illum? Officiis nulla ratione consectetur rerum accusantium sint eaque error doloribus aliquid architecto, quam est.
+                        </Text>
+                    </Text>
+                    <TouchableOpacity
+                        onPress={openComments}
+                        style={styles.addComment}
+                    >
+                        <ProfilePicture />
+                        <Text style={[styles.grayText, styles.fs14]}>
+                            Add a comment...
+                        </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.grayText}>
+                        5 hour ago
+                    </Text>
                 </View>
             </View>
         </View>
@@ -65,6 +102,8 @@ const PostCard = ({ userData, postData, }) => {
 export default PostCard
 
 const styles = StyleSheet.create({
+    wrapper: {
+    },
     header: {
         flexDirection: "row",
         alignItems: 'center',
@@ -102,7 +141,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center'
     },
-    commentsWrapper: {
+    detailsWrapper: {
         paddingHorizontal: 12
     },
     bold: {
@@ -113,5 +152,15 @@ const styles = StyleSheet.create({
     },
     fs13: {
         fontSize: 13
+    },
+    grayText: {
+        color: "#6E6E6E",
+        fontSize: 12
+    },
+    addComment: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        paddingVertical: 10
     }
 })

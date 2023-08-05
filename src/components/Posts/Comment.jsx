@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import useComment from '../../customHooks/useComment';
 
 const Comment = ({ userData, comment }) => {
 
     const [showMore, setShowMore] = useState(false);
+    const { openComments } = useComment();
 
     const handleShow = () => {
         if (showMore) {
-            setShowMore(false)
+            openComments()
         } else {
             setShowMore(true)
         }
