@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     userName: {
         fontSize: 12,
         color: "#000",
-        fontWeight: 400
+        // fontWeight: 400
     },
     profilePictureWrapper: {
         position: 'relative',

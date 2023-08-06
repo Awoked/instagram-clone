@@ -1,17 +1,20 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Animated, StyleSheet, View, Dimensions, TouchableOpacity, TextInput, ScrollView, Platform, Text } from 'react-native'
 import useComment from '../../customHooks/useComment'
 import Comment from './Comment';
+import ProfilePicture from '../UI/ProfilePicture';
+import { IconArrowUp } from '../UI/Icons';
 
 const Comments = () => {
-    const { showComments, closeComments } = useComment();
+    const { showComments, closeComments, commentsData } = useComment();
 
     const windowHeight = Dimensions.get('window').height;
-
     const translation = useRef(new Animated.Value(windowHeight)).current;
 
+    const [addCommentText, setAddCommentText] = useState('');
+
+
     useEffect(() => {
-        console.log(showComments)
         if (showComments) {
             Animated.timing(translation, {
                 toValue: 0,
@@ -24,6 +27,8 @@ const Comments = () => {
             }).start();
         }
     }, [showComments])
+
+
     return (
         <Animated.View
             style={[
@@ -41,19 +46,43 @@ const Comments = () => {
                     <View style={styles.line}></View>
 
                 </TouchableOpacity>
-                <Text style={{marginTop: 20}}>
+                <Text style={{ marginTop: 20 }}>
                     Comments
                 </Text>
             </View>
 
             <ScrollView style={styles.commentsWrapper}>
-                <Comment
-                    userData={{ userName: "alper" }}
-                    comment={"Lorem ipsum asdasd"}
-                />
+
+                {
+                    commentsData.length > 0 ?
+                        commentsData.map((data, index) => (
+
+                            <Comment
+                                userData={data.userData}
+                                comment={data.comment}
+                                key={index}
+                            />
+                        ))
+                        :
+                        <></>
+                }
+
+
             </ScrollView>
-            <View style={{ backgroundColor: "red", width: "100%" }}>
-                <TextInput />
+            <View style={styles.addCommentWrapper}>
+                <ProfilePicture />
+                <TextInput
+                    placeholder='Add comment...'
+                    value={addCommentText}
+                    onChangeText={e => setAddCommentText(e)}
+                    style={{ flex: 1 }}
+                />
+                {
+                    addCommentText.length > 0 ?
+                        <IconArrowUp size={24} />
+                        :
+                        null
+                }
             </View>
         </Animated.View>
     )
@@ -85,7 +114,7 @@ const styles = StyleSheet.create({
     commentsWrapper: {
         flex: 1,
         width: "100%",
-        padding: 10
+        padding: 10,
     },
     lineWrapper: {
         padding: 10,
@@ -97,5 +126,11 @@ const styles = StyleSheet.create({
         height: 5,
         borderRadius: 6,
         backgroundColor: "#424242"
+    },
+    addCommentWrapper: {
+        padding: 8,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8
     }
 })

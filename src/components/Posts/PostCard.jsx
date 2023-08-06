@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import ProfilePicture from '../UI/ProfilePicture'
 import { Heart, IconComment, IconMore, IconSave, IconShare } from '../UI/Icons'
-import Comment from './Comment'
 import useComment from '../../customHooks/useComment'
 
 const PostCard = ({ userData, postData, }) => {
 
-    const { openComments } = useComment();
-
+    const { openComments, initialCommentsData } = useComment();
 
     const [showMore, setShowMore] = useState(false);
 
-    const handleShow = () => {
+    const showComments = () => {
+        openComments();
+        initialCommentsData(postData.comments);
+    }
+
+    const handleShowMore = () => {
         if (showMore) {
-            openComments()
+            showComments();
         } else {
             setShowMore(true)
         }
@@ -27,10 +30,10 @@ const PostCard = ({ userData, postData, }) => {
             >
                 <View style={styles.userInformation}>
                     <ProfilePicture
-                        size={40}
+                        size={34}
                     />
-                    <Text style={styles.userName}>
-                        UserName
+                    <Text style={[styles.userNameText, styles.bold]}>
+                        {userData.userName}
                     </Text>
                 </View>
                 <IconMore size={12} />
@@ -49,7 +52,7 @@ const PostCard = ({ userData, postData, }) => {
                 <View style={styles.processLeft}>
                     <Heart />
                     <TouchableOpacity
-                        onPress={openComments}
+                        onPress={showComments}
                     >
                         <IconComment />
                     </TouchableOpacity>
@@ -72,7 +75,7 @@ const PostCard = ({ userData, postData, }) => {
 
                     <Text
                         numberOfLines={showMore ? undefined : 2}
-                        onPress={handleShow}
+                        onPress={handleShowMore}
                     >
                         <Text onPress={() => { console.log("Go To profile") }} style={[styles.fs14, styles.bold]}>
                             Alper&nbsp;
@@ -82,10 +85,19 @@ const PostCard = ({ userData, postData, }) => {
                         </Text>
                     </Text>
                     <TouchableOpacity
-                        onPress={openComments}
+                        onPress={showComments}
+                    >
+                        <Text
+                            style={[styles.grayText, styles.fs14, { marginTop: 8 }]}
+                        >
+                            View all {postData.comments.length} comments
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={showComments}
                         style={styles.addComment}
                     >
-                        <ProfilePicture />
+                        <ProfilePicture size={34} />
                         <Text style={[styles.grayText, styles.fs14]}>
                             Add a comment...
                         </Text>
@@ -112,9 +124,8 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         justifyContent: "space-between"
     },
-    userName: {
+    userNameText: {
         fontSize: 12,
-        fontWeight: 700
     },
     postImage: {
         width: "100%",

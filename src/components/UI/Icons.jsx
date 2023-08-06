@@ -183,6 +183,16 @@ const IconSave = ({ size = 24, ...props }) => {
 }
 
 
+const IconArrowUp = ({ size = 24, ...props }) => {
+    return (
+        <Svg width={size} height={size} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Path d="M4.10355 0.641198C3.90829 0.445935 3.59171 0.445935 3.39645 0.641198L0.214466 3.82318C0.0192039 4.01844 0.0192039 4.33502 0.214466 4.53028C0.409728 4.72555 0.726311 4.72555 0.921573 4.53028L3.75 1.70186L6.57843 4.53028C6.77369 4.72555 7.09027 4.72555 7.28553 4.53028C7.4808 4.33502 7.4808 4.01844 7.28553 3.82318L4.10355 0.641198ZM4.25 13.0052V0.994751H3.25V13.0052H4.25Z" fill="black" />
+        </Svg>
+
+    )
+}
+
+
 
 
 
@@ -203,6 +213,6 @@ export {
     IconMore,
     IconShare,
     IconComment,
-    IconSave
-
+    IconSave,
+    IconArrowUp
 }

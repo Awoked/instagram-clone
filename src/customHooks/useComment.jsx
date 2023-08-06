@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { CommentContext } from '../Context/CommentsContext'
 
 const useComment = () => {
@@ -11,14 +11,19 @@ const useComment = () => {
 
 
     const openComments = () => setShowComments(true);
+
     const closeComments = () => setShowComments(false);
 
+    const initialCommentsData = (data) =>{
+        setCommentsData(data)
+    }
 
     return {
         commentsData,
         showComments,
         openComments,
-        closeComments
+        closeComments,
+        initialCommentsData
     }
 }
 
