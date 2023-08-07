@@ -23,6 +23,7 @@ const PostCard = ({ userData, postData, }) => {
         }
     }
 
+
     return (
         <View style={styles.wrapper}>
             <View
