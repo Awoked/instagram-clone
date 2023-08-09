@@ -14,8 +14,15 @@ const useComment = () => {
 
     const closeComments = () => setShowComments(false);
 
-    const initialCommentsData = (data) =>{
+    const initialCommentsData = (data) => {
         setCommentsData(data)
+    }
+
+    const addComment = (commentData) => {
+        setCommentsData((snap) => [
+            commentData,
+            ...snap
+        ])
     }
 
     return {
@@ -23,7 +30,8 @@ const useComment = () => {
         showComments,
         openComments,
         closeComments,
-        initialCommentsData
+        initialCommentsData,
+        addComment
     }
 }
 

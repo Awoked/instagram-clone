@@ -6,12 +6,23 @@ import ProfilePicture from '../UI/ProfilePicture';
 import { IconArrowUp } from '../UI/Icons';
 
 const Comments = () => {
-    const { showComments, closeComments, commentsData } = useComment();
+    const { showComments, closeComments, commentsData, addComment } = useComment();
 
     const windowHeight = Dimensions.get('window').height;
     const translation = useRef(new Animated.Value(windowHeight)).current;
 
     const [addCommentText, setAddCommentText] = useState('');
+
+    const handleAddComment = () => {
+        // Data tipinin ayarlanması lazım backend eklendikten sonra
+        addComment({
+            userData: {
+                userName: "Alper"
+            },
+            comment: addCommentText
+        })
+        setAddCommentText('');
+    }
 
 
     useEffect(() => {
@@ -79,7 +90,9 @@ const Comments = () => {
                 />
                 {
                     addCommentText.length > 0 ?
-                        <IconArrowUp size={24} />
+                        <TouchableOpacity onPress={handleAddComment}>
+                            <IconArrowUp size={24} />
+                        </TouchableOpacity>
                         :
                         null
                 }
