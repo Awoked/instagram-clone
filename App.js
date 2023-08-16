@@ -17,7 +17,7 @@ import Login from './src/screens/auth/Login';
 import Home from './src/screens/Home/Home';
 import Search from './src/screens/Search';
 import Profile from './src/screens/Profile/Profile';
-import Reels from './src/screens/Reels';
+import Reels from './src/screens/Reels';    
 
 const Tab = createBottomTabNavigator();
 

@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import Input from '../../components/UI/Form/Input'
 import UIButton from '../../components/UI/Form/UIButton'
 import AuthContainer from '../../components/Auth/AuthContainer'
-import useAuth from '../../customHooks/useAuth'
+import useAuth from '../../Hooks/useAuth'
 
 const Login = ({ navigation }) => {
     const { Login } = useAuth();
@@ -17,6 +17,8 @@ const Login = ({ navigation }) => {
     const loginHandler = async () => {
         try {
             const response = await Login({ userName, password });
+            const data = response.json();
+            console.log(data);
             await navigation.navigate("HomeTabs")
 
         } catch (error) {

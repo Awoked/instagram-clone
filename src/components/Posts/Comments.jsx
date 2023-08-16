@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, StyleSheet, View, Dimensions, TouchableOpacity, TextInput, ScrollView, Platform, Text } from 'react-native'
-import useComment from '../../customHooks/useComment'
+import useComment from '../../Hooks/useComment'
 import Comment from './Comment';
 import ProfilePicture from '../UI/ProfilePicture';
 import { IconArrowUp } from '../UI/Icons';

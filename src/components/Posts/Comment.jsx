@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import useComment from '../../customHooks/useComment';
+import useComment from '../../Hooks/useComment';
 import ProfilePicture from '../UI/ProfilePicture';
 import { Heart } from '../UI/Icons';
 

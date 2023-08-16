@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import ProfilePicture from '../UI/ProfilePicture'
 import { Heart, IconComment, IconMore, IconSave, IconShare } from '../UI/Icons'
-import useComment from '../../customHooks/useComment'
+import useComment from '../../Hooks/useComment'
 
 const PostCard = ({ userData, postData, }) => {
 
