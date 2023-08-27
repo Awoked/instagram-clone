@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 
 //Components
@@ -6,7 +6,61 @@ import Input from '../../components/UI/Form/Input'
 import UIButton from '../../components/UI/Form/UIButton'
 import AuthContainer from '../../components/Auth/AuthContainer'
 
+import useAuth from '../../Hooks/useAuth'
+
+
 const Register = ({ navigation }) => {
+
+    const { Register } = useAuth();
+
+    const [credentials, setCredentials] = useState({
+        email: '',
+        fullName: '',
+        userName: '',
+        password: '',
+        passwordRepeat: ''
+    });
+    const [buttonActive, setButtonActive] = useState(true);
+
+    const handleChange = (text, name) => {
+        console.log(name)
+        setCredentials(prev => ({
+            ...prev,
+            [name]: text
+        }))
+    }
+
+    const handleRegister = async() => {
+        if (credentials.password !== credentials.passwordRepeat) return false;
+
+        const { email, fullName, password, userName } = credentials;
+        const firstName = fullName.substring(0, fullName.indexOf(' '));
+        const lastName = fullName.substring(fullName.indexOf(' ') + 1);
+        await Register({
+            email,
+            userName,
+            firstName,
+            lastName,
+            password,
+        })
+
+    }
+
+    useEffect(() => {
+
+        if (
+            credentials.email.length > 3 &&
+            credentials.fullName.length > 3 &&
+            credentials.userName.length > 3 &&
+            credentials.password.length > 3 &&
+            credentials.passwordRepeat.length > 3
+        ) {
+            setButtonActive(false);
+        } else {
+            setButtonActive(true)
+        }
+
+    }, [credentials])
 
     return (
         <AuthContainer>
@@ -19,19 +73,23 @@ const Register = ({ navigation }) => {
                 >
                     <Input
                         placeholder={"Email"}
-                        onChangeText={(e) => { console.log(e) }}
+                        onChangeText={e => handleChange(e, "email")}
                     />
                     <Input
                         placeholder={"Full Name"}
+                        onChangeText={e => handleChange(e, "fullName")}
                     />
                     <Input
                         placeholder={"Username"}
+                        onChangeText={e => handleChange(e, "userName")}
                     />
                     <Input
                         placeholder={"Password"}
+                        onChangeText={e => handleChange(e, "password")}
                     />
                     <Input
                         placeholder={"Repeat Password"}
+                        onChangeText={e => handleChange(e, "passwordRepeat")}
                     />
                 </View>
 
@@ -43,9 +101,9 @@ const Register = ({ navigation }) => {
                     Forget Password?
                 </UIButton>
                 <UIButton
-                    onPress={() => { console.log("test") }}
+                    onPress={handleRegister}
                     as='button'
-                    disabled={true}
+                    disabled={buttonActive}
                 >
                     Sign Up
                 </UIButton>

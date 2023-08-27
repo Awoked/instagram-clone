@@ -9,6 +9,7 @@ const Input = ({ ...props }) => {
             <TextInput
                 style={styles.input}
                 {...props}
+                
             />
         </View>
     )
