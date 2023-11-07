@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import Logo from '../UI/Logo'
+import { ScrollView } from 'react-native'
 
 
 const AuthContainer = ({ children }) => {
     return (
+
         <View
             style={styles.wrapper}
         >

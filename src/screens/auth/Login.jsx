@@ -17,12 +17,12 @@ const Login = ({ navigation }) => {
     const loginHandler = async () => {
         try {
             const response = await Login({ userName, password });
-            const data = response.json();
+            const data = await response.json();
             console.log(data);
             await navigation.navigate("HomeTabs")
 
         } catch (error) {
-            console.log(error.name)
+            console.log(error)
         }
     }
 

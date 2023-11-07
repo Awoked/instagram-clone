@@ -24,6 +24,17 @@ const useAuth = () => {
     const Login = async (userData) => {
         // api işlemi
 
+        const response = await fetch(`${env.API_BASE_URL}/login`,{
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        });
+        console.log('response', response)
+        const data = await response.json();
+        console.log('data', data)
+
         if (false) {
             //Hata
             throw new Error("Login failed")
@@ -50,21 +61,25 @@ const useAuth = () => {
      * @param {userType} userData 
      */
     const Register = async (userData) => {
-        const response = await fetch(`${env.API_BASE_URL}/register`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-        console.log(response.status)
-        if (response.status === 200) {
-            console.log("success")
-            const data = await response.json();
-            console.log(data);
-            // setUserData(userData)
-        } else if (response.status === 500) {
-            console.log("kullanıcı zaten kayıtlı")
+        try {
+            const response = await fetch(`${env.API_BASE_URL}/register`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            console.log(response.status)
+            if (response.status === 200) {
+                console.log("success")
+                const data = await response.json();
+                console.log(data);
+                // setUserData(userData)
+            } else if (response.status === 500) {
+                console.log("kullanıcı zaten kayıtlı")
+            }
+        } catch (error) {
+            console.log('error', error)
         }
     }
 
